@@ -48,7 +48,7 @@
             document.getElementById("demo").innerHTML = myJSON;
             alert(message);
             //$.post("http://localhost:5000/predict", JSON.stringify(message), function (response) { //DocekrMycom
-            $.post("http://192.168.99.100:80/predict", JSON.stringify(message), function(response){//DocekrMycom
+            $.post("http://localhost:80/predict", JSON.stringify(message), function(response){//DocekrMycom
                 /* $("#dog-prediction").text(response.prediction.dog.toFixed(6));*/
                 /*$("#cat-prediction").text(response.prediction.cat);*/
                 $("#Result-prediction").text(response.prediction.result);
