@@ -1,0 +1,11 @@
+Flask
+Flask-JSON
+#opencv-python
+tensorflow
+numpy
+pybase64
+pillow
+h5py
+pyyaml
+h5pyd
+tf_nightly

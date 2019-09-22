@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+
+    <title>Test Model predict</title>
+
+    <style>
+        * { fount-size:30px; }
+    </style>
+</head>
+<body>
+    <input id="image-selector" type="file">
+    <button id="predict-button">Predict5</button>
+    <p style="font-weight:bold">Predictions</p>
+    <!--<p>Dog: <span id="dog-prediction"></span></p>
+    <p>Cat: <span id="cat-prediction"></span></p>-->
+    <p>Result: <span id="Result-prediction"></span></p>
+    <p>Send: <span id="Send-prediction"></span></p>
+    <img id="selected-image" src="" />
+
+    <p id="demo">+++</p>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+        let base64Image;
+        $("#image-selector").change(function () {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let dataURL = reader.result;
+                $("#selected-image").attr("src", dataURL);
+                //base64Image = dataURL.replace("data:image/*;base64,", "");
+                base64Image = dataURL.replace(/^data:image\/(png|jpeg);base64,/, "");
+                console.log(base64Image);
+            }
+            reader.readAsDataURL($("#image-selector")[0].files[0]);
+            $("#dog-prediction").text("");
+            $("#cat-prediction").text("");
+        });
+
+        $("#predict-button").click(function (event) {
+            alert("clicked.");
+            let message = {
+                image: base64Image
+            }
+            console.log(message);
+            var myJSON = JSON.stringify(message);
+            document.getElementById("demo").innerHTML = myJSON;
+            alert(message);
+            //$.post("http://localhost:5000/predict", JSON.stringify(message), function (response) { //DocekrMycom
+            $.post("http://192.168.99.100:80/predict", JSON.stringify(message), function(response){//DocekrMycom
+                /* $("#dog-prediction").text(response.prediction.dog.toFixed(6));*/
+                /*$("#cat-prediction").text(response.prediction.cat);*/
+                $("#Result-prediction").text(response.prediction.result);
+                $("#Send-prediction").text(response.prediction.send);
+                /*$("#greeting").text(response.greeting);*/
+                console.log(response);
+            });
+        });
+
+
+
+    </script>
+
+</body>
+</html>
